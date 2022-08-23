@@ -31,24 +31,24 @@
       </div>
       <div class="main-card__content">
 
-        <ul v-for="item in items"
+        <div v-for="item in items"
             :key="item.id"
             class="main-card__list-items">
 
-          <li class="main-card__item">
+          <div class="main-card__item">
             <img :src="item.src"
                  :alt="item.name"/>
 
-          </li>
-          <li class="main-card__item">
+          </div>
+          <div class="main-card__item">
             <span class="main-card__item-names">name:</span>
              <span> {{ item.name }}</span>
-          </li>
-          <li class="main-card__item">
+          </div>
+          <div class="main-card__item">
             <span class="main-card__item-names">price:</span>
              <span>{{ item.price }}</span>
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -98,7 +98,7 @@ function sortData(payload){
 <style lang="scss" scoped>
 .main-card {
   max-width: 70rem;
-  height: 83rem;
+  height: 72rem;
   overflow-x: auto;
   background-color: #6b7280;
   border-radius: 1rem;
@@ -128,6 +128,7 @@ function sortData(payload){
   &__list-items {
     background-color: #e4e4e7;
     border-radius: 0.6rem;
+
   }
   &__item {
     display: flex;

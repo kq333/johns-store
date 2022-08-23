@@ -110,7 +110,6 @@ import cUploadImage from "@/components/cInputUplolad.component.vue";
 import { useStore } from "vuex";
 import { computed } from "vue"
 
-
 const store = useStore();
 
 const getcategoryProduct = computed(()=> store.state.productCategory);
@@ -127,37 +126,34 @@ const getValidateFormReady = computed(() => store.getters.getValidateFormReady)
 
 const isSubmiteBtnActive = computed(()=> store.state.isSubmiteBtnActive)
 
-
 function dropeFiles(payload) {
-  store.commit("SET_IMAGE_VALUE", payload);
-  store.commit('ADD_SUBMITE_FORM', false)
+  store.dispatch("addImageValue", payload);
+  store.dispatch('addSubmiteForm', false)
 }
 
 function closeModal(e) {
   e.preventDefault();
-
-  store.commit('SET_IS_MODAL_OPEN', false)
+  store.dispatch('isModalOpen', false)
 }
 
 function selectOptionValue(payload) {
-  store.commit("ADD_CATEGORY_VALUE", payload);
-  store.commit('ADD_SUBMITE_FORM', false)
-
+   store.dispatch('addCategoryValue', payload)
+   store.dispatch('addSubmiteForm', false)
 }
 
 function nameValue(payload) {
-  store.commit("ADD_NAME_VALUE", payload);
-  store.commit('ADD_SUBMITE_FORM', false)
+   store.dispatch('addNameValue', payload)
+   store.dispatch('addSubmiteForm', false)
 }
 
 function priceValue(payload) {
-  store.commit("ADD_PRICE_VALUE", payload);
-  store.commit('ADD_SUBMITE_FORM', false)
+   store.dispatch('addPriceValue', payload)
+   store.dispatch('addSubmiteForm', false)
 }
 
 function submitForm(e) {
   e.preventDefault();
-  store.commit('ADD_SUBMITE_FORM', true)
+  store.dispatch('addSubmiteForm', true)
 }
 </script>
 

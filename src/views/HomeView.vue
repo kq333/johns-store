@@ -51,6 +51,7 @@
     </section>
     </article>
     </main>
+      <span style="display: none">{{getPushNewDataToStore}}</span>
   </div>
 </template>
 
@@ -61,17 +62,9 @@ import cSelectOption from "@/components/cSelectOption.component.vue";
 import cBtn from "@/components/cButton.component.vue";
 import cInputs from "@/components/cInput.component.vue";
 import { useStore } from "vuex";
-import { computed, onMounted } from "vue";
+import { computed } from "vue";
 
 const store = useStore();
-
-onMounted(() => {
-  store.dispatch("LocalStorageState");
-});
-
-store.subscribe((mutation, state) => {
-  localStorage.setItem("storeState", JSON.stringify(state));
-});
 
 const catsproducts = computed(() => store.getters.getSortCats);
 const treehousesProducts = computed(() => store.getters.getSortTreehouse);
@@ -93,6 +86,8 @@ function productCurrancy(payload){
 function openModal(){
   store.commit('SET_IS_MODAL_OPEN', true)
 }
+
+const getPushNewDataToStore = computed(() => store.getters.getPushNewDataToStore)
 
 </script>
 <style lang="scss" scoped>

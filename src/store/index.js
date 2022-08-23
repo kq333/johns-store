@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import { getfilterCategory } from "./functions"
+import { getfilterCategory } from "./functions";
 
 export default createStore({
   state: {
@@ -209,9 +209,9 @@ export default createStore({
       "image/gif",
     ],
     currancy: [
-      {name: "PLN", id: 1},
-      { name:"USD", id: 2},
-      {name:"EUR", id: 3}
+      { name: "PLN", id: 1 },
+      { name: "USD", id: 2 },
+      { name: "EUR", id: 3 },
     ],
     categoryValue: "",
     nameValue: "",
@@ -222,10 +222,9 @@ export default createStore({
     isSortedCats: false,
     isSortedGroundhouse: false,
     isSortedTreehouse: false,
-    searchedWord: '',
+    searchedWord: "",
     isModalOpen: false,
-    productCurrency: 'PLN'
-
+    productCurrency: "PLN",
   },
   getters: {
     getCategoryValueLength: (state) => state.categoryValue.length > 0,
@@ -242,7 +241,7 @@ export default createStore({
     getValidateFormReady: (state, getters) => {
       if (
         getters.getCategoryValueLength &&
-        getters.getnameValueLength > 3 &&
+        getters.getnameValueLength > 1 &&
         getters.getPriceValue &&
         getters.getImageBase64Length &&
         !getters.getValidationInputValueByNumber
@@ -254,7 +253,7 @@ export default createStore({
     },
 
     getPushNewDataToStore: (state, getters) => {
-      if (state.isSubmiteBtnActive && getters.getValidateFormReady) {
+      if (getters.getValidateFormReady && state.isSubmiteBtnActive) {
         state.productData.push({
           name: state.nameValue,
           category: state.categoryValue,
@@ -275,18 +274,33 @@ export default createStore({
       }
     },
 
-    getSearchedWordLength: (state)=> state.searchedWord.length >=1,
+    getSearchedWordLength: (state) => state.searchedWord.length >= 1,
 
-    getSortCats: ( state) => getfilterCategory(state.productData, state.isSortedCats,  'cats', state.searchedWord),
+    getSortCats: (state) =>
+      getfilterCategory(
+        state.productData,
+        state.isSortedCats,
+        "cats",
+        state.searchedWord
+      ),
 
-    getSortTreehouse: ( state) => getfilterCategory(state.productData, state.isSortedTreehouse, 'treehouse', state.searchedWord),
+    getSortTreehouse: (state) =>
+      getfilterCategory(
+        state.productData,
+        state.isSortedTreehouse,
+        "treehouse",
+        state.searchedWord
+      ),
 
-    getSortGroundhouse: ( state) => getfilterCategory(state.productData, state.isSortedGroundhouse, 'groundhouse', state.searchedWord),
-
-
+    getSortGroundhouse: (state) =>
+      getfilterCategory(
+        state.productData,
+        state.isSortedGroundhouse,
+        "groundhouse",
+        state.searchedWord
+      ),
 
     //////////////////////////////////////////////////////////////////
-
 
     // getUpdatePrice: (state) => {
 
@@ -294,10 +308,8 @@ export default createStore({
     //         Object.assign({}, d, {price: d.price * 2})
     //       )));
     //   }
-
   },
   mutations: {
-
     ADD_CATEGORY_VALUE(state, payload) {
       state.categoryValue = payload;
     },
@@ -310,7 +322,6 @@ export default createStore({
     },
 
     SET_IMAGE_VALUE(state, payload) {
-
       const getCompareValue = state.imageFormatValidation.filter(
         (elem) => elem === payload.type
       );
@@ -332,47 +343,62 @@ export default createStore({
     ADD_SUBMITE_FORM(state, payload) {
       state.isSubmiteBtnActive = payload;
     },
-    ADD_SEARCHED_INPUT_VALUE(state, payload){
-      state.searchedWord = payload
+
+    ADD_SEARCHED_INPUT_VALUE(state, payload) {
+      state.searchedWord = payload;
     },
 
-    SET_IS_MODAL_OPEN(state, payload){
-
-      state.isModalOpen === false ? state.isModalOpen = payload : state.isModalOpen = payload;
+    SET_IS_MODAL_OPEN(state, payload) {
+      state.isModalOpen === false
+        ? (state.isModalOpen = payload)
+        : (state.isModalOpen = payload);
 
       state.isAddToCategory = "";
       state.categoryValue = "";
       state.nameValue = "";
       state.priceValue = "";
       state.imageBase64 = "";
-
     },
 
-    ADD_SORT_PRICE_CATS(state,  payload){
-      state.isSortedCats = payload
+    ADD_SORT_PRICE_CATS(state, payload) {
+      state.isSortedCats = payload;
     },
 
-    ADD_SORT_PRICE_TREEHOUSE(state, payload){
-      state.isSortedTreehouse = payload
+    ADD_SORT_PRICE_TREEHOUSE(state, payload) {
+      state.isSortedTreehouse = payload;
     },
 
-    ADD_SORT_PRICE_GROUNDHOUSE(state, payload){
-      state.isSortedGroundhouse = payload
+    ADD_SORT_PRICE_GROUNDHOUSE(state, payload) {
+      state.isSortedGroundhouse = payload;
     },
 
-    ADD_CURRENCY_PRODUCT(state, payload){
-      state.productCurrency = payload
+    ADD_CURRENCY_PRODUCT(state, payload) {
+      state.productCurrency = payload;
     },
-    ADD_UPDATE_STATE(state, payload){
-      Object.assign(state, payload);
-    }
   },
   actions: {
-
-    async LocalStorageState({ commit }) {
-      const data = JSON.parse(localStorage.getItem("storeState"));
-      commit("ADD_UPDATE_STATE", data);
+    addSubmiteForm({ commit }, payload) {
+      commit("ADD_SUBMITE_FORM", payload);
     },
+
+    isModalOpen({ commit }, payload) {
+      commit("SET_IS_MODAL_OPEN", payload);
+    },
+    addCategoryValue({ commit }, payload) {
+      commit("ADD_CATEGORY_VALUE", payload);
+    },
+
+    addNameValue({ commit }, payload) {
+      commit("ADD_NAME_VALUE", payload);
+    },
+    addPriceValue({commit}, payload){
+      commit('ADD_PRICE_VALUE', payload)
+    },
+
+    addImageValue({commit}, payload){
+      commit('SET_IMAGE_VALUE', payload)
+    }
+
 
   },
   modules: {},
