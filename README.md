@@ -1,5 +1,12 @@
 # johns-store
 
+Tech Stack:
+
+Vue3, Vuex, SCSS, HTML5.
+
+
+
+
 ## Project setup
 ```
 npm install
