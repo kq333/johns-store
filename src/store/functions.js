@@ -14,7 +14,7 @@ function getfilterCategory(arr, sort, param, searchedWord) {
 }
 
 function getExchangeRate(arr, param){
-  return   arr.filter(elem => elem.code === param ).map(elem => elem.mid.toFixed(2))
+  return   arr.filter(elem => elem.code === param ).map(elem => elem.mid)
   }
 
 export { getfilterCategory, getExchangeRate };

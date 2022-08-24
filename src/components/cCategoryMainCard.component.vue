@@ -46,7 +46,7 @@
           </div>
           <div class="main-card__item">
             <span class="main-card__item-names">price:</span>
-             <span>{{ item.price.toFixed(2) }}</span>
+             <span>{{ item.price }}</span>
           </div>
         </div>
       </div>

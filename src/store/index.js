@@ -375,7 +375,7 @@ export default createStore({
         state.productData = state.productData.map((elem) =>
           Object.assign({}, elem, {
             price:
-              elem.price.toFixed(2) *
+              elem.price *
               `${getExchangeRate(state.exchangeValue, state.productCurrency)}`,
           })
         );
@@ -386,7 +386,7 @@ export default createStore({
         state.productData = state.productData.map((elem) =>
           Object.assign({}, elem, {
             price:
-              elem.price.toFixed(2) /
+              elem.price/
               `${getExchangeRate(
                 state.exchangeValue,
                 state.currentCurrency[0]
