@@ -382,7 +382,7 @@ export default createStore({
       }
 
       if (state.productCurrency === "PLN") {
-        console.log("nie ma zlotowki, to false");
+
         state.productData = state.productData.map((elem) =>
           Object.assign({}, elem, {
             price:
@@ -399,7 +399,7 @@ export default createStore({
         state.productCurrency !== "PLN" &&
         state.currentCurrency[0] !== "PLN"
       ) {
-        console.log("dwa nie PLN");
+
         state.productData = state.productData.map((elem) =>
           Object.assign({}, elem, {
             price:
