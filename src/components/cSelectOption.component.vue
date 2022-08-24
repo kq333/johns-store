@@ -1,13 +1,17 @@
 <template>
-  <label :class="{'label-currancy' :labelCurrancy,
-                  'label-modal' : labelModal }"
-                  :for="attributeValue">
+  <label :class="{
+         'label-currancy' :labelCurrancy,
+         'label-modal' : labelModal
+         }"
+         :for="attributeValue">
 
           {{ labelText }}
   </label>
 
-  <select :class="{'select-currancy' : selectCurrancy,
-                   'select-modal' : selectModal}"
+  <select :class="{
+          'select-currancy' : selectCurrancy,
+          'select-modal' : selectModal
+          }"
           :name="attributeValue"
           :id="attributeValue"
           @change="selectedValue">
@@ -15,6 +19,7 @@
     <option value=""
             v-if="disableOptionText">
             {{ optionText }}
+
     </option>
     <option v-for="option in options"
             :key="option.name"
@@ -90,8 +95,7 @@ function selectedValue(payload) {
   font-size: 2rem;
 }
 .select-currancy{
-   width: 8rem;
-  // width: 100%;
+  width: 8rem;
   height: 3.4rem;
   background-color: #f2f3f2;
   border-radius: 1rem;

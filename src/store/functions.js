@@ -13,4 +13,8 @@ function getfilterCategory(arr, sort, param, searchedWord) {
   }
 }
 
-export { getfilterCategory };
+function getExchangeRate(arr, param){
+  return   arr.filter(elem => elem.code === param ).map(elem => elem.mid.toFixed(2))
+  }
+
+export { getfilterCategory, getExchangeRate };

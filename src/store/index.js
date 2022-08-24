@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
-import { getfilterCategory } from "./functions";
+import { getfilterCategory, getExchangeRate } from "./functions";
+import axios from "axios";
 
 export default createStore({
   state: {
@@ -225,6 +226,8 @@ export default createStore({
     searchedWord: "",
     isModalOpen: false,
     productCurrency: "PLN",
+    currentCurrency: [],
+    exchangeValue: [],
   },
   getters: {
     getCategoryValueLength: (state) => state.categoryValue.length > 0,
@@ -299,15 +302,6 @@ export default createStore({
         "groundhouse",
         state.searchedWord
       ),
-
-    //////////////////////////////////////////////////////////////////
-
-    // getUpdatePrice: (state) => {
-
-    //     return state.productData = (state.productData.map(d => (
-    //         Object.assign({}, d, {price: d.price * 2})
-    //       )));
-    //   }
   },
   mutations: {
     ADD_CATEGORY_VALUE(state, payload) {
@@ -373,7 +367,53 @@ export default createStore({
     },
 
     ADD_CURRENCY_PRODUCT(state, payload) {
+      state.currentCurrency.pop();
+      state.currentCurrency.push(state.productCurrency);
       state.productCurrency = payload;
+
+      if (state.currentCurrency[0] === "PLN") {
+        state.productData = state.productData.map((elem) =>
+          Object.assign({}, elem, {
+            price:
+              elem.price.toFixed(2) *
+              `${getExchangeRate(state.exchangeValue, state.productCurrency)}`,
+          })
+        );
+      }
+
+      if (state.productCurrency === "PLN") {
+        console.log("nie ma zlotowki, to false");
+        state.productData = state.productData.map((elem) =>
+          Object.assign({}, elem, {
+            price:
+              elem.price.toFixed(2) /
+              `${getExchangeRate(
+                state.exchangeValue,
+                state.currentCurrency[0]
+              )}`,
+          })
+        );
+      }
+
+      if (
+        state.productCurrency !== "PLN" &&
+        state.currentCurrency[0] !== "PLN"
+      ) {
+        console.log("dwa nie PLN");
+        state.productData = state.productData.map((elem) =>
+          Object.assign({}, elem, {
+            price:
+              `${
+                getExchangeRate(state.exchangeValue, state.productCurrency) /
+                getExchangeRate(state.exchangeValue, state.currentCurrency[0])
+              }` * elem.price,
+          })
+        );
+      }
+    },
+
+    ADD_CURRENCY_EXCHANGE_VALUE(state, payload) {
+      state.exchangeValue = payload;
     },
   },
   actions: {
@@ -391,15 +431,24 @@ export default createStore({
     addNameValue({ commit }, payload) {
       commit("ADD_NAME_VALUE", payload);
     },
-    addPriceValue({commit}, payload){
-      commit('ADD_PRICE_VALUE', payload)
+    addPriceValue({ commit }, payload) {
+      commit("ADD_PRICE_VALUE", payload);
     },
 
-    addImageValue({commit}, payload){
-      commit('SET_IMAGE_VALUE', payload)
-    }
+    addImageValue({ commit }, payload) {
+      commit("SET_IMAGE_VALUE", payload);
+    },
 
-
+    async getCurrencyValue({ commit }) {
+      try {
+        const fetchdata = await axios.get(
+          "http://api.nbp.pl/api/exchangerates/tables/a/"
+        );
+        commit("ADD_CURRENCY_EXCHANGE_VALUE", fetchdata.data[0].rates);
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
   modules: {},
 });

@@ -1,14 +1,18 @@
 <template>
   <div class="home-view">
     <main>
+
     <teleport to="#modal" >
+
       <section v-if="isModalOpen">
+
         <c-modal-form/>
       </section>
     </teleport>
 
     <section class="home-view__events">
       <div class="home-view__search-item">
+
         <c-inputs @input-value="searchInputValue"
                   label-text="search" />
 
@@ -22,11 +26,12 @@
             :disable-option-text="false"
             :label-currancy="true"
             :select-currancy="true"
-            @select-value="productCurrancy"
-          />
+            @select-value="productCurrancy" />
+
         </div>
 
       <div class="home-view__btn-item">
+
         <c-btn @click="openModal"
                text="add to collection"
                :adding-items="true"/>
@@ -35,19 +40,24 @@
     </section>
 <article>
     <section v-if="catsproducts.length>0">
+
       <c-category-card :items='catsproducts'
                        header="Category: Cats"
                        :is-searched-words="getSearchedWordLength"/>
+
     </section>
 
      <section  v-if="treehousesProducts.length>0" >
+
       <c-category-card :items='treehousesProducts'
                        header="Category: Cottage tree" :is-searched-words="getSearchedWordLength"/>
+
     </section>
 
     <section  v-if="GroundhouseProducts.length>0" >
       <c-category-card :items='GroundhouseProducts'
                        header="Category: Groundhouse" :is-searched-words="getSearchedWordLength"/>
+
     </section>
     </article>
     </main>
@@ -62,9 +72,13 @@ import cSelectOption from "@/components/cSelectOption.component.vue";
 import cBtn from "@/components/cButton.component.vue";
 import cInputs from "@/components/cInput.component.vue";
 import { useStore } from "vuex";
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 
 const store = useStore();
+
+onMounted(()=>{
+  store.dispatch('getCurrencyValue')
+});
 
 const catsproducts = computed(() => store.getters.getSortCats);
 const treehousesProducts = computed(() => store.getters.getSortTreehouse);

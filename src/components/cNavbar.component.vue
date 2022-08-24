@@ -8,8 +8,6 @@
   </div>
 </template>
 
-<script setup></script>
-
 <style lang="scss">
 .nav-bar {
   max-width: 144rem;
