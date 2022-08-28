@@ -442,7 +442,7 @@ export default createStore({
     async getCurrencyValue({ commit }) {
       try {
         const fetchdata = await axios.get(
-          "http://api.nbp.pl/api/exchangerates/tables/a/"
+          "https://api.nbp.pl/api/exchangerates/tables/a/"
         );
         commit("ADD_CURRENCY_EXCHANGE_VALUE", fetchdata.data[0].rates);
       } catch (error) {
