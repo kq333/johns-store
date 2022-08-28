@@ -132,10 +132,10 @@ article{
     border: solid 0.1rem #2c3e5042;
     border-radius: 1rem;
 
-    @media(max-width: 425px){
+    @media(max-width: 42.5rem){
       display: block
     }
-     @media(min-width:768px) and (max-width:1023px){
+     @media(min-width:76.8rem) and (max-width:102.3rem){
        max-width: 90%;
        margin-left: 5%;
     }
@@ -145,7 +145,7 @@ article{
      display:flex;
      align-items: center;
 
-     @media(max-width: 425px){
+     @media(max-width: 42.5rem){
       display: block;
       width: 80%;
       margin: auto;;
@@ -158,7 +158,7 @@ article{
      justify-content: center;
      align-items: center;
 
-     @media(max-width: 425px){
+     @media(max-width: 42.5rem){
       width: 90%;
       margin: auto;
       margin-top: 1rem;
@@ -171,7 +171,7 @@ article{
      justify-content: center;
      align-items: center;
 
-     @media(max-width: 425px){
+     @media(max-width: 42.5rem){
       margin: auto;
       width: 70%;
       margin-top: 1rem;

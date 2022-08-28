@@ -58,9 +58,7 @@ label {
   outline: none;
 }
 input[type="text"] {
-  // background-image: url(../components/icons/search-icon.svg);
   background-position: 1.5rem;
   background-repeat: no-repeat;
-  // padding-left: 4.3rem;
 }
 </style>

@@ -172,7 +172,7 @@ function submitForm(e) {
     margin: auto;
     margin-top: 15%;
 
-    @media (min-width: 320px) {
+    @media (min-width: 32rem) {
       padding: 1rem;
     }
   }

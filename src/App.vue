@@ -29,10 +29,10 @@ html {
   height: 100vh;
   margin: auto;
 
-  @media (max-width: 320px) {
+  @media (max-width: 32rem) {
     font-size: 1.5rem;
   }
-  @media (min-width: 375px) {
+  @media (min-width: 37.5rem) {
     font-size: 2rem;
   }
 }
